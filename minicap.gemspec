@@ -8,5 +8,5 @@ Gem::Specification.new do |s|
   s.description = %q{Minicap provides a minimal yet functional set of git specific cap recipes. 
     Minicap's recipes roughly mimic those in the standard capistrano distribution, but are 
     much smaller and faster to understand'}
-  s.files = [ "README", "LICENCE", "lib/minicap.rb"]
+  s.files = [ "README.md", "LICENCE", "lib/minicap.rb"]
 end
