@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = %q{minicap}
-  s.version = "0.0.1"
+  s.version = "1.0.0"
   s.date = %q{2010-07-15}
   s.authors = ["Mat Trudel"]
   s.email = %q{mat@well.ca}

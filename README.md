@@ -15,7 +15,13 @@ Minicap also has two features that the stock deployment recipes lack;
 
 ## Using Minicap
 
-The easiest way to start using minicap is to change the first line of your project's `Capfile` to `load 'minicap'`. Copy the contents of minicap's `examples/deploy.rb` as a jumping off point for your project's `deploy.rb`.
+To use minicap, your project's `Capfile` should look like 
+ 
+    require 'rubygems'
+    require 'minicap'
+    load 'config/deploy'
+
+Copy the contents of minicap's `examples/deploy.rb` as a jumping off point for your project's `deploy.rb`.
 
 ## Coming soon
 
