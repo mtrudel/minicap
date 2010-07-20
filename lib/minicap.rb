@@ -14,14 +14,14 @@ Capistrano::Configuration.instance(:must_exist).load do
  
     desc "Update the deployed code"
     task :default, :except => { :no_release => true } do
-      fetch
+      fetch_code
       deploy.check_yr_head if fetch(:pedantic_remote, false) && branch !~ /HEAD/
       update_code
       orphans if fetch(:look_for_orphans, false)
     end
   
     desc "Fetches the latest from the repo"
-    task :fetch do
+    task :fetch_code do
       run_gregarious "cd #{deploy_to} ; git fetch -q origin"
     end
   
