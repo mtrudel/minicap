@@ -7,7 +7,6 @@ Capistrano::Configuration.instance(:must_exist).load do
   namespace :deploy do
     desc "Set up the deployment structure"
     task :setup, :except => { :no_release => true } do
-      run "mkdir -p #{deploy_to}"
       run_gregarious "[ -d #{deploy_to}/.git ] || git clone -q #{repository} #{deploy_to}"
       unversioned_dirs.each { |d| run "mkdir -p #{deploy_to + '/' + d}" } if exists? :unversioned_dirs
     end
