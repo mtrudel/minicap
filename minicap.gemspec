@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = %q{minicap}
-  s.version = "1.0.2"
-  s.date = %q{2010-07-26}
+  s.version = "1.0.4"
+  s.date = %q{2010-10-03}
   s.authors = ["Mat Trudel"]
   s.email = %q{mat@well.ca}
   s.summary = %q{Minicap provides a minimal yet functional set of git specific cap recipes}

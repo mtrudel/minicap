@@ -1,13 +1,12 @@
 Capistrano::Configuration.instance(:must_exist).load do
   require 'capistrano/recipes/deploy/scm'
 
-  default_run_options[:pty] = true # Needed for debian based servers
   set :ssh_options, {:forward_agent => true}
- 
+
   namespace :deploy do
     desc "Set up the deployment structure"
     task :setup, :except => { :no_release => true } do
-      run_gregarious "[ -d #{deploy_to}/.git ] || git clone -q #{repository} #{deploy_to}"
+      run_gregarious "git clone -q #{repository} #{deploy_to} ; true"
       unversioned_dirs.each { |d| run "mkdir -p #{deploy_to + '/' + d}" } if exists? :unversioned_dirs
     end
  
@@ -26,16 +25,17 @@ Capistrano::Configuration.instance(:must_exist).load do
   
     desc "Aborts if remote's HEAD is different than ours"
     task :check_yr_head do
-      remote = capture("cd #{deploy_to} ; git show-ref origin/#{branch}").split[0]
-      local = `git show-ref #{branch}`.split[0]
+      remote = capture("cd #{deploy_to} ; git show-ref --hash origin/#{branch}")
+      local = `git show-ref --hash #{branch}`
       abort "It looks like you haven't pushed your changes yet. Aborting
       Your  HEAD is #{local[0,7]}
       Their HEAD is #{remote[0,7]}" if local != remote
-    end  
+    end
   
     desc "Does a git reset to get the repo looking like branch"
     task :update_code do
       run "cd #{deploy_to} ; git reset --hard origin/#{branch}"
+      run "cd #{deploy_to} ; git show-ref --hash origin/#{branch} > REVISION"
     end
   
     desc "Reports back on remote files that didn't come from git, or aren't ignored by git"
