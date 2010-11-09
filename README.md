@@ -15,7 +15,11 @@ Minicap also has two features that the stock deployment recipes lack;
 
 ## Using Minicap
 
-To use minicap, your project's `Capfile` should look like 
+First, install minicap
+
+    gem install minicap
+
+Then set up your project to use minicap, by making your project's `Capfile` look like 
  
     require 'rubygems'
     require 'minicap'
@@ -25,5 +29,5 @@ Copy the contents of minicap's `examples/deploy.rb` as a jumping off point for y
 
 ## Coming soon
 
- * Better multistage support. This will probably just lean on cap's multistage support, but I may make it a little cleaner
  * Transparent support for templated files. No more jumping through hoops to get a `database.yml` file up to production
+ * Built-in notification emails, ala cap-gun
