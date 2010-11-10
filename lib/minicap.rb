@@ -2,6 +2,7 @@ Capistrano::Configuration.instance(:must_exist).load do
   require 'capistrano/recipes/deploy/scm'
 
   set :ssh_options, {:forward_agent => true}
+  set :scm, :git
 
   namespace :deploy do
     desc "Set up the deployment structure"
@@ -34,8 +35,10 @@ Capistrano::Configuration.instance(:must_exist).load do
   
     desc "Does a git reset to get the repo looking like branch"
     task :update_code do
+      set :previous_revision, capture("cd #{deploy_to} ; git show-ref --hash --verify refs/heads/master").chomp
       run "cd #{deploy_to} ; git reset --hard origin/#{branch}"
       run "cd #{deploy_to} ; git show-ref --hash origin/#{branch} > REVISION"
+      set :current_revision, capture("cd #{deploy_to} ; git show-ref --hash origin/#{branch}").chomp
     end
   
     desc "Reports back on remote files that didn't come from git, or aren't ignored by git"
